@@ -1,6 +1,9 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include "FullSailCourse.h"
+#include <Console.h>
+
 
 bool postFix(std::string& hero)
 {
@@ -33,8 +36,38 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+//a REFERENCE is an ALIAS to another variable
+//PROs to using references...
+//1) allows access to a variable in a different scope
+//2) PREVENTS a copy. improves the performance.
+//
+//WHEN to use pass by reference...
+//1) when the parameter is a class
+//2) when the method needs to modify a variable in a different scope
+//3) when you want to improve performance
+void Adder(int& number)//number is a REFERENCE variable
+{
+    //number now REFERS to a variable in a different scope
+    number += rand();
+}
+
+//get the benefit of NOT making a copy
+//prevents the method from changing the variable
+void PrintTheBest(const std::string& heroName)
+{
+    //heroName = "Bruce";
+    std::cout << heroName << "\n";
+}
 int main()
 {
+    std::string name = "Aquaman";
+    PrintTheBest(name);
+    name = "Batman";
+    PrintTheBest(name);
+    int n = 5;
+    int& nRef = n;//nRef is the SAME variable as n
+    Adder(n);
+    std::cout << n << "\n";
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -59,8 +92,28 @@ int main()
 
     */
     std::vector<float> grades;
+    FullSailCourse pg2;
+    pg2.GetGrades(grades);
+    pg2.SetName("PG2 2510");
+    pg2.PrintGrades(grades);
+    //Console::WriteLine("\nPG2 2510", ConsoleColor::Magenta);
+    //for (int index = 0; index < grades.size(); index++)
+    //{
+    //    std::cout << grades[index] << "\n";
+    //}
+    //range-based (foreach) loop
+    //for (auto& grade : grades)
+    //{
+    //    std::cout << grade << "\n";
+    //}
 
-
+    //an iterator is an OBJECT that points to an item inside a collection
+    //vector.begin() - gives an iterator to the first item in the vector
+    //vector.end() - gives an iterator to the item AFTER the last item
+    //for (auto iter = grades.begin(); iter != grades.end(); iter++)
+    //{
+    //    std::cout << *iter << "\n";
+    //}
 
     /*
         ╔══════════════════╗
@@ -141,3 +194,4 @@ int main()
 
     printInfo(scores);
 }
+
