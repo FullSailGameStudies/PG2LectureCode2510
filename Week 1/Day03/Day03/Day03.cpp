@@ -1,7 +1,11 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include "ThemeSong.h"
 
+// default parameter requirements:
+//  they MUST appear at the end of the parameter list
+//  for methods that are part of classes, the default value is in the declaration ONLY
 std::string postFix(std::string fileName, int postFixNumber = 1) //postFixNumber is optional
 {
     return fileName + "_" + std::to_string(postFixNumber);
@@ -9,6 +13,8 @@ std::string postFix(std::string fileName, int postFixNumber = 1) //postFixNumber
 
 int main()
 {
+    postFix("Spider-man", 606);
+    postFix("Manbat");
 
     /*
         ╔═══════════════════════════════╗
@@ -44,6 +50,9 @@ int main()
             EX: if 6 is passed, print "na na na na na na Batman"
 
     */
+    ThemeSong themes;
+    themes.batTheme();
+    themes.batTheme(100);
 
 
 
