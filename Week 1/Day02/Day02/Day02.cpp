@@ -23,7 +23,8 @@ float average(const std::vector<int>& scores)
     return sum / scores.size();
 }
 
-void print(const std::vector<int>& scores)
+void print(
+    std::vector<int>& scores)
 {
     std::cout << "----SCORES----\n";
     int index = 1;
@@ -33,6 +34,14 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    //size() - # of items in the vector
+    //capacity() - length of the internal array
+    //size is ALWAYS <= capacity
+    //
+    //if I push_back an item and it would make size > capacity,
+    //the vector will RESIZE its internal array
+    //and copy the items from the old array to the new array
+
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
@@ -124,6 +133,8 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
+    highScores.reserve(10);
+    printInfo(highScores);//size: ?  capacity: ?
     for (int i = 0; i < 10; ++i)
     {
         highScores.push_back(rand() % 5000);
@@ -162,6 +173,46 @@ int main()
     print(highScores);
 
     //erase all scores < 2500
+    for (int i = 0; i < highScores.size(); i++)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+            i--;//move the index back 1
+        }
+    }
+    //OR....
+    for (int i = 0; i < highScores.size(); )
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+        else
+        {
+            i++;//ONLY increment i when not erasing
+        }
+    }
+    //OR....
+    for (int i = highScores.size() - 1; i >= 0; i--)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+    }
+    //OR....
+    for (auto iter = highScores.begin(); iter != highScores.end();)
+    {
+        if (*iter < 2500)
+        {
+            iter = highScores.erase(iter);
+        }
+        else
+        {
+            iter++;//ONLY increment i when not erasing
+        }
+    }
 
     print(highScores);
 
