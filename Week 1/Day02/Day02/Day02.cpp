@@ -105,6 +105,9 @@ int main()
     pg2.GetGrades(grades);
     pg2.SetName("PG2 2510");
     pg2.PrintGrades(grades);
+    pg2.EraseGrades(grades);
+    pg2.PrintGrades(grades);
+
     //Console::WriteLine("\nPG2 2510", ConsoleColor::Magenta);
     //for (int index = 0; index < grades.size(); index++)
     //{
@@ -141,6 +144,15 @@ int main()
         printInfo(highScores);//size: ?  capacity: ?
     }
     float avg = average(highScores);
+
+    std::vector<int> h2 = highScores;//copies the vector
+    std::vector<int> h3(highScores);//copy the vector
+    std::vector<int> h4;
+    h4.reserve(highScores.size());
+    for (size_t i = 0; i < highScores.size(); i++)
+    {
+        h4.push_back(highScores[i]);
+    }
 
 
 

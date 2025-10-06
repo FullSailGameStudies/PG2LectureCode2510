@@ -4,6 +4,8 @@
 class FullSailCourse
 {
 public:
+	void EraseGrades(std::vector<float>& grades, float minGrade = 59.5) const;
+
 	void GetGrades(std::vector<float>& grades);
 
 	//TOPIC: pass by ref + const
