@@ -189,9 +189,34 @@ int main()
     }
     PrintGrades(grades);
 
+    std::string keyToFind = "texas toast";
+    //std::cout << menu[itemToFind] << "\n";
+    //do NOT loop over the map to find a key
+    auto wasFound = menu.find(keyToFind);
+    //find will return the map.end() if NOT found
+    //find will return an iterator to the key-value pair if found
+    if (wasFound != menu.end())
+    {
+        float oldPrice = wasFound->second;
+        std::cout << keyToFind << " used to costs " << oldPrice << ".\n";
+        //update the value for the key
+        //menu[keyToFind] = oldPrice * 1.10;
+        wasFound->second *= 1.1f;
+        std::cout << "now it costs " << wasFound->second << ". Thanks Putin!!\n";
+    }
+    else
+        std::cout << keyToFind << " is not on the menu. Try McDonald's\n";
 
 
+    //erase(iterator) - performs better
+    //erase(key)!!!!!!!!!
 
+    //requires a lookup
+    menu.erase("orange juice");
+    menu.erase("Dino nuggies");
+
+    auto toast = menu.find("texas toast");
+    menu.erase(toast);
 
 
 
