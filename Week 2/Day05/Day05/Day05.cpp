@@ -7,6 +7,7 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include <iomanip>
 
 enum class Weapon
 {
@@ -28,6 +29,24 @@ int LinearSearch(const std::vector<int>& numbers, int searchNumber)
     return NOT_FOUND;
 }
 
+void PrintGrades(const std::map<std::string, double>& course)
+{
+    Console::WriteLine("\nPG2 2510", ConsoleColor::Cyan);
+    for (auto& [name,grade] : course)
+    {
+        Console::SetForegroundColor(
+            //ternary (shorthand for an if-else)
+            (grade<59.5) ? ConsoleColor::Red : 
+            (grade<69.5) ? ConsoleColor::Yellow : 
+            (grade<79.5) ? ConsoleColor::Magenta : 
+            (grade<89.5) ? ConsoleColor::Blue : 
+                           ConsoleColor::Green
+        );
+        std::cout << std::setw(7) << std::right << grade;
+        Console::Reset();
+        std::cout << " " << std::left << name << "\n";
+    }
+}
 
 int main()
 {
@@ -157,6 +176,19 @@ int main()
             Loop over your grades map and print each student name and grade.
 
     */
+
+    std::vector<std::string> students = {
+        "Garrett","Kasey","Shaquille","Curtis","Devin","Kristoffer","Frank",
+        "Aidan","Gabe","Nicolas","Sebastien","Wesley"
+    };
+    srand(time(NULL));
+    std::map<std::string, double> grades;
+    for (auto& name : students)
+    {
+        grades[name] = rand() % 10001 / 100.0;
+    }
+    PrintGrades(grades);
+
 
 
 
