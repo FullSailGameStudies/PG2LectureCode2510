@@ -13,6 +13,21 @@ enum class Weapon
     Sword, Axe, Spear, Mace
 };
 
+//avoid magic numbers
+const int NOT_FOUND = -1;
+
+int LinearSearch(const std::vector<int>& numbers, int searchNumber)
+{
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        if (searchNumber == numbers[i])
+        {
+            return i;
+        }
+    }
+    return NOT_FOUND;
+}
+
 
 int main()
 {
@@ -37,7 +52,12 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
+    int searchNumber = 6;
+    int foundIndex = LinearSearch(numbers, searchNumber);
+    if (foundIndex == NOT_FOUND)
+        std::cout << searchNumber << " is not found.\n";
+    else
+        std::cout << searchNumber << " was found at index " << foundIndex << "\n";
 
 
 
@@ -76,12 +96,65 @@ int main()
     dorasBackpack[Weapon::Axe] = 3;
     dorasBackpack[Weapon::Axe] = 7;//simply overwrites the value if the key is already in the map
 
+    //keys MUST be unique
+    //std::map<keyType,valueType> 
+    std::map<std::string, float> menu;
+    //2 ways to add data to a map...
+    //1) (easy way) map[key] = value;
+    menu["omelette"] = 4.99f;
+    menu["texas toast"] = 2.99f;
+    menu["orange juice"] = 3.99f;
+    menu["orange juice"] = 4.99f;//overwrites
 
+    //2) (harder way) map.insert(key-value pair);
+    std::pair<std::string, float> menuPair =
+        std::make_pair("bacon", 1.99f);
+    menu.insert(menuPair);
+    menuPair.second = 2.99f;
+    //first: iterator to the key-value pair object in the map
+    //second: bool saying whether it was inserted or not
+    std::pair<std::map<std::string,float>::iterator,bool> menuInserted = menu.insert(menuPair);//does NOT overwrite
+    if (menuInserted.second)
+    {
+        std::cout << menuPair.first << " is already on the menu.\n";
+    }
+
+    std::cout << "\n\nPG2 Cafe\n";
+    //looping
+    for (auto iter = menu.begin(); iter != menu.end(); iter++)
+    {
+        std::cout << iter->first;
+        Console::SetCursorLeft(15);
+        std::cout << iter->second << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto& menuItem : menu)
+    {
+        std::cout << menuItem.first;
+        Console::SetCursorLeft(15);
+        std::cout << menuItem.second << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\n\nPG2 Cafe\n";
+    for (auto& [itemName,itemPrice] : menu)
+    {
+        std::cout << itemName;
+        Console::SetCursorLeft(15);
+        std::cout << itemPrice << "\n";
+    }
+    std::cout << "\n\n";
     /*
         CHALLENGE:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
+            Create a map that stores names (string) and grades. 
+            Call the variable grades.
             Add students and grades to your map.
+
+
+            Loop over your grades map and print each student name and grade.
 
     */
 
@@ -123,12 +196,6 @@ int main()
     }
 
 
-    /*
-        CHALLENGE:
-
-            Loop over your grades map and print each student name and grade.
-
-    */
 
 
 
