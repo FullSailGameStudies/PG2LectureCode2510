@@ -12,3 +12,8 @@ void Pistol::showMe()
 	//call the base method instead
 	Weapon::showMe();
 }
+
+int Pistol::calcDamage()
+{
+	return Weapon::calcDamage();
+}

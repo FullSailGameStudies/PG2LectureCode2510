@@ -14,7 +14,11 @@ public:
 	//   be overridden in a derived class
 	//2) go to the derived class and add a new method to override the behavior
 	virtual void showMe();
-	int calcDamage();
+
+	//pure virtual function:
+	// 1) mark it virtual
+	// 2) assign 0 to the method
+	virtual int calcDamage() = 0;
 
 	int range() const
 	{

@@ -7,6 +7,7 @@ public:
 		: Weapon(range, damage), length_(length), serrated_(serrated)
 	{
 	}
+	int calcDamage() override;
 
 	int Length() const { return length_; }
 	bool Serrated() const { return serrated_; }

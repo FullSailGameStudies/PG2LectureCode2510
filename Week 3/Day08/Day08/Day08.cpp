@@ -10,12 +10,30 @@
 #include "Pistol.h"
 #include "Knife.h"
 
+void Counter()
+{
+	//static variables "live" in a special section of memory
+	//  used for statics
+	//static variables remain in memory for as long as
+	//  the app is running.
+	//	therefore, be careful how much static memory that you use
+	static int i = 0;
+	std::cout << i << " ";
+	i++;
+}
 
 int main()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		Counter();
+	}
 	int rng = 50, dmg = 100;
-	Weapon wpn(rng, dmg);
+	//ONLY purpose of abstract base class is to be a starting place for other classes
+	//Weapon wpn(rng, dmg); //cannot create an object of an abstract base class
 	int rnds = 10, magCap = 20;
+
+	//if you do NOT override the pure virtual function, your child class becomes abstract too
 	Pistol pewpew(rng, dmg, rnds, magCap);
 	pewpew.showMe();
 
