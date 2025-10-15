@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\..\Shared\Input\Input.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="Day08.cpp" />
+    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="Pistol.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
@@ -142,6 +143,7 @@
     <ClInclude Include="final.h" />
     <ClInclude Include="friends.h" />
     <ClInclude Include="Inheritance.h" />
+    <ClInclude Include="Knife.h" />
     <ClInclude Include="nested.h" />
     <ClInclude Include="Pistol.h" />
     <ClInclude Include="Polymorphism.h" />

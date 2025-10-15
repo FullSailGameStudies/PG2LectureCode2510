@@ -8,6 +8,7 @@
 #include "Car.h"
 #include "Weapon.h"
 #include "Pistol.h"
+#include "Knife.h"
 
 
 int main()
@@ -16,6 +17,7 @@ int main()
 	Weapon wpn(rng, dmg);
 	int rnds = 10, magCap = 20;
 	Pistol pewpew(rng, dmg, rnds, magCap);
+	Knife stabby(3, 10, 5, true);
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
