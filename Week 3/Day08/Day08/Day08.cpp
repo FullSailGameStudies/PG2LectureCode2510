@@ -6,10 +6,16 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "Weapon.h"
+#include "Pistol.h"
 
 
 int main()
 {
+	int rng = 50, dmg = 100;
+	Weapon wpn(rng, dmg);
+	int rnds = 10, magCap = 20;
+	Pistol pewpew(rng, dmg, rnds, magCap);
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║

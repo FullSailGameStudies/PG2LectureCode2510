@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include "color.h"
+#include "Student.h"
 
 
 /*              CLASSESS
@@ -41,9 +43,26 @@
 
 */
 
+//represent a color in code.
+//  colors have 4 parts: red, green, blue, alpha (transparency)
+int red, green, blue, alpha;
+//use class or struct to GROUP items
+
 
 int main()
 {
+    Color fore;
+    fore.r = 255;
+    fore.g = fore.b = 0;
+    fore.a = 255;
+
+    //instance of the Student class. a student object.
+    //To create an object of any class, you MUST call a ctor
+    Student steev("Steve Austin","WWE",12345);
+    std::cout << steev.GetDegree() << " " << steev.GPA() << "\n";
+
+    steev.SetDegree("Game Development (AI)");
+    steev.GPA(1.2f);
     /*
         Lecture code: add a Car class
     
