@@ -16,6 +16,11 @@ public:
 	{
 	}
 
+	//override the base method
+	//	the signature of this method MUST MATCH EXACTLY as the base
+	//  the 'override' keyword is optional but GOOD programming practice
+	void showMe() override;
+
 	int Rounds() const { return rounds_; }
 	int MagCapacity() const { return magCapacity_; }
 

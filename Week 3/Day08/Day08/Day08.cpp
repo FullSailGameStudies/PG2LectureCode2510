@@ -17,7 +17,15 @@ int main()
 	Weapon wpn(rng, dmg);
 	int rnds = 10, magCap = 20;
 	Pistol pewpew(rng, dmg, rnds, magCap);
+	pewpew.showMe();
+
 	Knife stabby(3, 10, 5, true);
+
+	Account acct1;
+	acct1.mBalance = 1000;
+	Account acct2;
+	acct2.mBalance = 20000;
+	Account acct3 = acct1 + acct2;
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
