@@ -6,11 +6,15 @@ class Car
 {
 public:
 	Car() : mMake("Ford"), mModel("A"), mModelYear(1908), mFuelLevel(0), mMaxFuelLevel(15)
-	{   }
+	{
+		mNumberOfCarsMade++;
+	}
 
 	Car(int year, std::string make, std::string model)
 		: mModelYear(year), mMake(make), mModel(model), mFuelLevel(0), mMaxFuelLevel(15)
-	{	}
+	{
+		mNumberOfCarsMade++;
+	}
 	std::string vehicleInformation();
 
 	void refuel()
@@ -33,6 +37,10 @@ public:
 		}
 	}
 
+	//static methods 
+	//	there is NO 'this' parameter
+	//	can ONLY access other static members
+	//  can NOT access non-static members
 	static void reporting()
 	{
 		//std::cout << "Model year: " << mModelYear << "\n"; //ERROR! cannot access non-static members
@@ -47,6 +55,8 @@ protected:
 	int mFuelLevel;
 	int mMaxFuelLevel;
 
+	//STATIC fields
+	//	SHARED variables for ALL instances
 	static int mNumberOfCarsMade; //shared by ALL cars
 private:
 };

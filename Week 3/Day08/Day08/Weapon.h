@@ -18,7 +18,7 @@ public:
 	//pure virtual function:
 	// 1) mark it virtual
 	// 2) assign 0 to the method
-	virtual int calcDamage() = 0;
+	virtual int calcDamage();
 
 	int range() const
 	{

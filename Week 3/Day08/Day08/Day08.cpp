@@ -9,6 +9,7 @@
 #include "Weapon.h"
 #include "Pistol.h"
 #include "Knife.h"
+#include <vector>
 
 void Counter()
 {
@@ -22,8 +23,29 @@ void Counter()
 	i++;
 }
 
+Pistol* CreateGun()
+{
+	Pistol gun1(5, 5, 5, 5);//stack
+	Pistol* pGun = new Pistol(5, 5, 5, 5);//heap
+	new Pistol(5, 5, 5, 5);//memory leak
+	return pGun;
+}
+
+void LoadGun(Pistol* gun)
+{
+	// -> is the same as * when it comes to dereferencing
+	gun->showMe();
+	(*gun).showMe();
+}
 int main()
 {
+	Car car1(2010, "Ford", "Expedition");
+	Car car2(2023, "Hyundai", "Sonata");
+	car1.vehicleInformation();
+	car2.vehicleInformation();
+	Car::reporting();
+
+
 	for (int i = 0; i < 10; i++)
 	{
 		Counter();
@@ -34,7 +56,8 @@ int main()
 	int rnds = 10, magCap = 20;
 
 	//if you do NOT override the pure virtual function, your child class becomes abstract too
-	Pistol pewpew(rng, dmg, rnds, magCap);
+	Pistol pewpew(rng, dmg, rnds, magCap);//on the stack
+	LoadGun(&pewpew);//we do not need to delete stack pointers
 	pewpew.showMe();
 
 	Knife stabby(3, 10, 5, true);
@@ -75,7 +98,74 @@ int main()
 	*/
 
 
+	//pointers can be 32-bit or 64-bit depending on the app
+	//if 32-bit app, then pointers are 4-bytes
+	//if 64-bit app, then pointers are 8-bytes
 
+	int a = 5;
+	int* aPtr;
+	aPtr = &a;//on the right-hand side (rhs), it is the address-of operator
+	//a pointer to a variable on the STACK
+	std::cout << "\n\n" << a << "\n" << aPtr << "\n";
+	std::cout << *aPtr << "\n"; //* here is used to DEREFERENCE the pointer
+
+	//heap memory (dynamic memory)
+	//	devs allocate the memory manually
+	//	" = new " means HEAP memory
+	//	this memory MUST be cleaned up by the devs when no longer needed
+	//		for EVERY "=new" you MUST HAVE a corresponding "delete"
+	aPtr = new int(10);
+	//to "clean up" means to deallocate to release the memory back to the system
+	delete aPtr;
+
+	{
+		float* fPtr = new float(5.3f);//allocate HEAP memory 
+	}
+	//fPtr variable goes OUT-of scope. we've LEAKED the memory
+	//memory leak means it has been allocated but cannot be deallocated
+	//AND we cannot access the memory any more
+	//std::cout << fPtr;
+
+	Pistol* pGun = new Pistol(50, 100, 10, 15);//on the heap
+	delete pGun;
+
+	//how to assign a memory address to a pointer...
+	//1) get the address-of an existing variable
+	// OR...
+	//2) allocate new memory
+
+	//2 areas of memory that you can access:
+	//  1) the stack (local variables, parameters)
+	//		lifetime of these are controlled by scope
+	//		when the variables go out of scope, they
+	//		are removed from memory automatically
+	//  2) the heap (dynamic memory)
+	//		lifetime of these are controlled by the devs
+
+
+	//a unique_ptr manages the memory for us
+	//when the unique_ptr goes out of scope, it deletes the memory
+	
+	//unique_ptr is the ONLY variable that can point to that object
+
+	//int* aPtr = new int(5);
+	int* bPtr = aPtr;//copies the memory address, NOT the integer
+
+	//delete aPtr;//frees the memory at that address
+	//aPtr = nullptr;
+	//if (aPtr != nullptr)
+	//{
+
+	//}
+
+	std::unique_ptr<Pistol> uGun = 
+		std::make_unique<Pistol>(5, 10, 10, 15);
+	//std::unique_ptr<Pistol> uGun2 = uGun;//cannot have 2 unique_ptrs to the same object
+	std::unique_ptr<Pistol> uGun2 = std::move(uGun);//ownership transfers to uGun2
+	//Pistol* rawPtr = new Pistol(5, 5, 5, 5);
+	//std::unique_ptr<Pistol> uGun3(rawPtr);
+	//delete rawPtr;
+	//uGun3->showMe();
 	/*
 		╔*************╗
 		║  CHALLENGE  ║
@@ -87,9 +177,43 @@ int main()
 
 	*/
 
+	Weapon wpn2(5,5);
+	Pistol pew(5, 5, 5, 5);
+	wpn2 = pew;//??? just copies the weapon parts to wpn2
 
+	std::vector<Weapon> weapons;//store pistols AND knives
+	weapons.push_back(Pistol(5, 5, 5, 5));//copies the pistol
+	weapons.push_back(Knife(3, 10, 12, true));//copies the knife
 
+	Weapon* wpnPtr2;
+	wpnPtr2 = &pewpew;//stores the MEMORY ADDRESS to pewpew
 
+	{
+		std::vector<std::unique_ptr<Weapon>> weapons2;
+		//UPCASTING to a weapon*
+		//UPCAST - ALWAYS safe
+		weapons2.push_back(std::make_unique<Pistol>(5, 5, 5, 5));//copies the pistol POINTER
+		weapons2.push_back(std::make_unique<Knife>(3, 10, 12, true));//copies the knife POINTER
+		//weapons2.push_back(new int(10));
+
+		std::cout << "\n\nWeapons\n";
+		for (int i = 0; i < weapons2.size(); i++)
+		{
+			//Weapon* pWeapon = weapons2[i];
+			//std::cout << pWeapon << "\n";
+			//std::unique_ptr<Weapon>* pWeapon = &weapons2[i];
+
+			weapons2[i]->showMe();//runtime polymorphism
+
+			//IF I need to get to the type-specific info, I would need to DOWNCAST (NOT SAFE!!!)
+		}
+		std::cout << "\n\n";
+
+		//for (size_t i = 0; i < weapons2.size(); i++)
+		//{
+		//	delete weapons2[i];
+		//}
+	}//cleans up the unique_ptrs automatically
 
 
 	/*
