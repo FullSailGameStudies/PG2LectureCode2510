@@ -51,6 +51,35 @@ int main()
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
 
+    std::string fileName = "2510.csv";
+    std::string path = "C:/temp/2510/";
+    std::string fullPath = path + fileName;
+
+    //ofstream: output (write to the file)
+    //ifstream: input  (read from the file)
+    //fstream: input + output
+
+    //1) OPEN the file
+    //   will create the file IF the path exists
+    //   it will NOT create the path
+    //   check if the file is open before using it
+    std::ofstream outFile(fullPath);
+    char delimiter = '*';
+    if (outFile.is_open())
+    {
+        //2) Write to the file
+        //   << insertion operator
+        outFile << "Batman rules!" << delimiter << 5;
+        outFile << delimiter << 13.2;
+        outFile << delimiter << true << delimiter << "Aquaman smells.";
+    }
+    else
+        std::cout << fullPath << " could not be opened.\n";
+
+    //3) CLOSE the file
+    //   close the file AS SOON AS POSSIBLE
+    outFile.close();
+
 
     /*
 
