@@ -69,7 +69,7 @@ int main()
     {
         //2) Write to the file
         //   << insertion operator
-        outFile << "Batman rules!" << delimiter << 5;
+        outFile << "Batman rules!" << delimiter << "Steev4";
         outFile << delimiter << 13.2;
         outFile << delimiter << true << delimiter << "Aquaman smells.";
     }
@@ -80,6 +80,56 @@ int main()
     //   close the file AS SOON AS POSSIBLE
     outFile.close();
 
+
+    //1) OPEN the file
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        //2) READ the file
+        std::string line;
+        //read the file until it reaches a newline OR the end of the file
+        std::getline(inFile, line);
+
+        //parse the string to get the data
+        std::string data;
+        std::stringstream lineStream(line);
+        //read the stream until it reaches a delimiter OR the end of the stream
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+
+        //try-catch block
+        //1) put the code that MIGHT throw an exception inside a try block
+        //2) add 1 or more catch blocks to handle exceptions
+
+        try
+        {
+            std::getline(lineStream, data, delimiter);
+            int iData = std::stoi(data);
+            std::cout << iData << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            double dData = std::stod(data);
+            std::cout << dData << "\n";
+
+            std::getline(lineStream, data, delimiter);
+            bool bData = std::stoi(data);
+            std::cout << bData << "\n";
+
+        }
+        //1 or more catch blocks to handle different exceptions
+        catch (const std::exception& ex)
+        {
+            std::cout << "Error parsing the file:\n";
+            std::cout << ex.what() << "\n";
+        }
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+    }
+    else
+        std::cout << fullPath << " could not be opened.\n";
+
+    //3) CLOSE the file
+    inFile.close();
 
     /*
 
