@@ -182,4 +182,31 @@ int main()
     std::string multi = "Batman^Bruce Wayne^35#Superman^Clark Kent^25#Wonder Woman^Diana Prince^25#Aquaman^Arthur Curry^12";
     char collectionSeparator = '#';
     char objectSeparator = '^';
+    std::stringstream multiStream(multi);
+    while (not multiStream.eof())
+    {
+        std::string hero;
+        std::getline(multiStream, hero, collectionSeparator);
+
+        std::stringstream heroStream(hero);
+        std::string name, secret, ageStr;
+        int age;
+
+        std::getline(heroStream, name, objectSeparator);
+        std::getline(heroStream, secret, objectSeparator);
+        std::getline(heroStream, ageStr, objectSeparator);
+        try
+        {
+            age = std::stoi(ageStr);
+
+            std::cout << "Hello citizen. I am " << name;
+            std::cout << " (aka " << secret << "). ";
+            std::cout << "I am " << age << " years old!\n";
+        }
+        catch (const std::exception&)
+        {
+            std::cout << "Error processing the age: " << ageStr << "\n";
+        }
+
+    }
 }
