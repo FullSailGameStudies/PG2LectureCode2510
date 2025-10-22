@@ -36,6 +36,56 @@ int main()
     garage.push_back(Car(1965, "Pontiac", "GTO"));
     garage.push_back(Car(1969, "Plymouth", "Hemi Cuda"));
 
+    //coding practice: serialize the garage to a file
+    std::ofstream garageFile("jaysGarage.csv");
+    if (garageFile.is_open())
+    {
+        bool notFirst = false;
+        for (auto& car : garage)
+        {
+            if(notFirst) garageFile << "\n";
+            notFirst = true;
+
+            car.SerializeCSV(garageFile, delimiter);
+        }
+    }
+    else
+        std::cout << "Jay's Garage could not be opened.\n";
+    garageFile.close();
+
+
+    std::string myData = "1965,Pontiac,GTO";
+    Car todaysRide(myData, ',');
+    std::cout << todaysRide.vehicleInformation() << "\n";
+
+    //coding practice:
+    //  load jays garage from the file into a new vector of Car objects
+    //  then, loop over the new vector and print the vehicle info
+    std::ifstream jaysFile("jaysGarage.csv");
+    std::vector<Car> loadedCars;
+    if (jaysFile.is_open())
+    {
+        while (not jaysFile.eof())
+        {
+            //read a line from the file
+            //create a Car using the line
+            std::string line;
+            std::getline(jaysFile, line);
+            Car nextCar(line, delimiter);
+            loadedCars.push_back(nextCar);
+        }
+    }
+    else
+        std::cout << "jaysGarage.csv could not be opened.\n";
+    jaysFile.close();
+
+    std::cout << "\n\nJay's Garage\n";
+    for (auto& car : loadedCars)
+    {
+        car.SerializeCSV(std::cout, ' ');
+        std::cout << "\n";
+        //std::cout << car.vehicleInformation() << "\n";
+    }
 
     /*
         ╔═════════════╗
