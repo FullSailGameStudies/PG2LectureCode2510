@@ -12,6 +12,22 @@ int main()
 {
     std::cout << "Gone in 60 Seconds!\n";//https://carbuzz.com/features/beyond-eleanor-gone-in-60-seconds-car-names#:~:text=The%20Complete%20List%20Of%20Gone%20In%2060%20Seconds,8%201961%20Porsche%20Speedster%20-%20%22Natalie%22%20More%20items
 
+    Car myRide(1967, "Ford", "Shelby Mustang GT500");
+    //1) open the file
+    std::string fileName = "garage2510.csv";
+    char delimiter = '$';
+    std::ofstream out(fileName);
+    if (out.is_open())
+    {
+        //2) write to the file
+        myRide.SerializeCSV(out, delimiter);
+    }
+    else
+        std::cout << fileName << " could not be opened.\n";
+
+    //3) close the file
+    out.close();
+
 
     std::vector<Car> garage;
     garage.push_back(Car(1967, "Ford", "Shelby Mustang GT500"));

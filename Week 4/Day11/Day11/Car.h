@@ -20,6 +20,8 @@ public:
 		mModelYear(modelYear), mMake(make), mModel(model)
 	{}
 
+	void SerializeCSV(std::ofstream& outFile, char delimiter) const;
+
 	int ModelYear() const  //const says the method can't modify anything
 	{ 
 		return mModelYear;  //provides access to the field's value
